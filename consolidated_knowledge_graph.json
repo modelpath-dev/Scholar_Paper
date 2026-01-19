@@ -1,0 +1,335 @@
+{
+  "directed": false,
+  "multigraph": false,
+  "graph": {},
+  "nodes": [
+    {
+      "label": "Automated Bone Marrow Cytology System",
+      "summary": "An end-to-end deep learning system for automated analysis of bone marrow aspirate digital whole slide images (WSIs), designed to support hematological diagnosis by automating region selection, cell detection, and classification.",
+      "type": "concept",
+      "paper": "s43856-022-00107-6",
+      "id": "s43856-022-00107-6_1"
+    },
+    {
+      "label": "Region of Interest (ROI) Detection",
+      "summary": "The first computational step of the system, which automatically detects and selects suitable regions or tiles from a large WSI for subsequent cytological analysis.",
+      "type": "concept",
+      "paper": "s43856-022-00107-6",
+      "id": "s43856-022-00107-6_1.1"
+    },
+    {
+      "label": "Algorithm",
+      "summary": "A fine-tuned DenseNet model is employed to rapidly and automatically select appropriate ROI tiles from a WSI.",
+      "type": "concept",
+      "paper": "s43856-022-00107-6",
+      "id": "s43856-022-00107-6_1.1.1"
+    },
+    {
+      "label": "Performance",
+      "summary": "Achieved a cross-validation accuracy of 0.97, precision of 0.90, and a ROC AUC of 0.99.",
+      "type": "concept",
+      "paper": "s43856-022-00107-6",
+      "id": "s43856-022-00107-6_1.1.2"
+    },
+    {
+      "label": "Cell Detection and Classification",
+      "summary": "The core component that simultaneously identifies individual bone marrow cells and assigns them to one of numerous discrete classes based on cytological features.",
+      "type": "concept",
+      "paper": "s43856-022-00107-6",
+      "id": "s43856-022-00107-6_1.2"
+    },
+    {
+      "label": "Algorithm",
+      "summary": "Implements a YOLO (You Only Look Once) model, specifically YOLOV4, trained from scratch to perform object detection and classification in a single step.",
+      "type": "concept",
+      "paper": "s43856-022-00107-6",
+      "id": "s43856-022-00107-6_1.2.1"
+    },
+    {
+      "label": "YOLO Model Features",
+      "summary": "Solves detection and classification simultaneously using a regression approach. YOLOV4 is optimized for small object detection and uses complete intersection-over-union (CIoU) loss for faster convergence and better accuracy.",
+      "type": "concept",
+      "paper": "s43856-022-00107-6",
+      "id": "s43856-022-00107-6_1.2.2"
+    },
+    {
+      "label": "Performance",
+      "summary": "Achieved a mean Average Precision (mAP) of 0.75, an average F1-score of 0.78, and a Log-average miss rate of 0.31 for detecting and classifying 16 key cellular and non-cellular objects.",
+      "type": "concept",
+      "paper": "s43856-022-00107-6",
+      "id": "s43856-022-00107-6_1.2.3"
+    },
+    {
+      "label": "Histogram of Cell Types (HCT)",
+      "summary": "A novel representation that summarizes the collective cytomorphological information for a patient by quantifying the class probability distribution of all identified bone marrow cells.",
+      "type": "concept",
+      "paper": "s43856-022-00107-6",
+      "id": "s43856-022-00107-6_1.3"
+    },
+    {
+      "label": "Function",
+      "summary": "Acts as a 'cytological patient fingerprint' by providing a quantitative summary of the bone marrow cell class probability distribution.",
+      "type": "concept",
+      "paper": "s43856-022-00107-6",
+      "id": "s43856-022-00107-6_1.3.1"
+    },
+    {
+      "label": "Potential Application",
+      "summary": "Aims to support more efficient, consistent, and accurate diagnostic workflows in hematology, providing a foundation for AI-enabled computational pathology.",
+      "type": "concept",
+      "paper": "s43856-022-00107-6",
+      "id": "s43856-022-00107-6_1.3.2"
+    },
+    {
+      "label": "Machine-Learning Algorithm for Bone Marrow Cell Differential Counting",
+      "summary": "Development and validation of an AI-based algorithm using a Mask R-CNN model to automate the differential counting (DC) of nucleated cells in bone marrow (BM) aspiration smears.",
+      "type": "concept",
+      "paper": "rp1",
+      "id": "rp1_ml_bm_dc_main"
+    },
+    {
+      "label": "Methodology",
+      "summary": "An AI model was developed using a Mask R-CNN architecture, trained on a large dataset of expert-annotated cell images from slides prepared with different staining methods.",
+      "type": "concept",
+      "paper": "rp1",
+      "id": "rp1_methodology"
+    },
+    {
+      "label": "AI Model Architecture",
+      "summary": "A Mask Region-based Convolutional Neural Network (Mask R-CNN) was used to simultaneously detect and classify individual bone marrow cells.",
+      "type": "concept",
+      "paper": "rp1",
+      "id": "rp1_ai_model"
+    },
+    {
+      "label": "Training and Annotation",
+      "summary": "The model was trained on a large dataset of expert-annotated images. Consensus meetings were held to ensure consistent cell classification criteria among experts from different institutes.",
+      "type": "concept",
+      "paper": "rp1",
+      "id": "rp1_training_process"
+    },
+    {
+      "label": "Staining Methods",
+      "summary": "The bone marrow slides used for training and validation were stained with either Liu\u2019s stain or Wright\u2013Giemsa stain.",
+      "type": "concept",
+      "paper": "rp1",
+      "id": "rp1_staining_methods"
+    },
+    {
+      "label": "Datasets Used",
+      "summary": "The study utilized a large training dataset and a separate multinational, real-world dataset for clinical validation.",
+      "type": "concept",
+      "paper": "rp1",
+      "id": "rp1_datasets"
+    },
+    {
+      "label": "Training Dataset",
+      "summary": "The AI model was trained on 542 slides containing 597,222 annotated cells. 85.1% of slides were stained with Liu\u2019s stain and 14.9% with Wright\u2013Giemsa stain.",
+      "type": "concept",
+      "paper": "rp1",
+      "id": "rp1_training_dataset"
+    },
+    {
+      "label": "Validation Dataset",
+      "summary": "Performance was validated on a multinational real-world dataset from four centers (three in Taiwan, one in the US) comprising 200,639 cells.",
+      "type": "concept",
+      "paper": "rp1",
+      "id": "rp1_validation_dataset"
+    },
+    {
+      "label": "Performance and Results",
+      "summary": "The AI model achieved high accuracy in both testing and validation phases and showed a strong correlation with manual counting methods.",
+      "type": "concept",
+      "paper": "rp1",
+      "id": "rp1_performance_results"
+    },
+    {
+      "label": "Testing Accuracy",
+      "summary": "The model achieved an accuracy of 0.94 on the internal testing dataset, which contained 26,170 cells.",
+      "type": "concept",
+      "paper": "rp1",
+      "id": "rp1_testing_accuracy"
+    },
+    {
+      "label": "Validation Accuracy",
+      "summary": "On the multinational real-world dataset, the model achieved an overall accuracy of 0.881 in classifying individual cells.",
+      "type": "concept",
+      "paper": "rp1",
+      "id": "rp1_validation_accuracy"
+    },
+    {
+      "label": "Cell-Specific Precision",
+      "summary": "The model demonstrated high precision for key cell types: blasts (0.927), bands and polymorphonuclear neutrophils (0.955), plasma cells (0.930), and lymphocytes (0.789).",
+      "type": "concept",
+      "paper": "rp1",
+      "id": "rp1_cell_specific_precision"
+    },
+    {
+      "label": "Correlation with Manual Counting",
+      "summary": "A strong correlation (\u03c1 > 0.8) was observed between the AI's differential counting percentages and those from manual methods for most cell categories.",
+      "type": "concept",
+      "paper": "rp1",
+      "id": "rp1_correlation_with_manual"
+    },
+    {
+      "label": "Challenges and Background",
+      "summary": "The study addresses the limitations of manual bone marrow cell counting and the difficulties in developing automated AI solutions.",
+      "type": "concept",
+      "paper": "rp1",
+      "id": "rp1_challenges_and_background"
+    },
+    {
+      "label": "Limitations of Manual Differential Counting",
+      "summary": "Manual counting is labor-intensive, time-consuming, subject to high interobserver variation, and limited by a low number of counted cells, which can lead to sampling bias.",
+      "type": "concept",
+      "paper": "rp1",
+      "id": "rp1_manual_dc_limitations"
+    },
+    {
+      "label": "Challenges in AI Development",
+      "summary": "Key challenges include collecting sufficient high-quality BM samples across diverse diseases, the technical demands of sample preparation, and the time-consuming nature of expert annotation.",
+      "type": "concept",
+      "paper": "rp1",
+      "id": "rp1_ai_development_challenges"
+    },
+    {
+      "label": "Conclusion",
+      "summary": "The study successfully developed and clinically validated an AI algorithm that can locate and classify bone marrow cells, demonstrating its potential for automating differential counting in clinical settings.",
+      "type": "concept",
+      "paper": "rp1",
+      "id": "rp1_conclusion"
+    }
+  ],
+  "links": [
+    {
+      "type": "hierarchical",
+      "source": "s43856-022-00107-6_1",
+      "target": "s43856-022-00107-6_1.1"
+    },
+    {
+      "type": "hierarchical",
+      "source": "s43856-022-00107-6_1",
+      "target": "s43856-022-00107-6_1.2"
+    },
+    {
+      "type": "hierarchical",
+      "source": "s43856-022-00107-6_1",
+      "target": "s43856-022-00107-6_1.3"
+    },
+    {
+      "type": "hierarchical",
+      "source": "s43856-022-00107-6_1.1",
+      "target": "s43856-022-00107-6_1.1.1"
+    },
+    {
+      "type": "hierarchical",
+      "source": "s43856-022-00107-6_1.1",
+      "target": "s43856-022-00107-6_1.1.2"
+    },
+    {
+      "type": "hierarchical",
+      "source": "s43856-022-00107-6_1.2",
+      "target": "s43856-022-00107-6_1.2.1"
+    },
+    {
+      "type": "hierarchical",
+      "source": "s43856-022-00107-6_1.2",
+      "target": "s43856-022-00107-6_1.2.2"
+    },
+    {
+      "type": "hierarchical",
+      "source": "s43856-022-00107-6_1.2",
+      "target": "s43856-022-00107-6_1.2.3"
+    },
+    {
+      "type": "hierarchical",
+      "source": "s43856-022-00107-6_1.3",
+      "target": "s43856-022-00107-6_1.3.1"
+    },
+    {
+      "type": "hierarchical",
+      "source": "s43856-022-00107-6_1.3",
+      "target": "s43856-022-00107-6_1.3.2"
+    },
+    {
+      "type": "hierarchical",
+      "source": "rp1_ml_bm_dc_main",
+      "target": "rp1_methodology"
+    },
+    {
+      "type": "hierarchical",
+      "source": "rp1_ml_bm_dc_main",
+      "target": "rp1_datasets"
+    },
+    {
+      "type": "hierarchical",
+      "source": "rp1_ml_bm_dc_main",
+      "target": "rp1_performance_results"
+    },
+    {
+      "type": "hierarchical",
+      "source": "rp1_ml_bm_dc_main",
+      "target": "rp1_challenges_and_background"
+    },
+    {
+      "type": "hierarchical",
+      "source": "rp1_ml_bm_dc_main",
+      "target": "rp1_conclusion"
+    },
+    {
+      "type": "hierarchical",
+      "source": "rp1_methodology",
+      "target": "rp1_ai_model"
+    },
+    {
+      "type": "hierarchical",
+      "source": "rp1_methodology",
+      "target": "rp1_training_process"
+    },
+    {
+      "type": "hierarchical",
+      "source": "rp1_methodology",
+      "target": "rp1_staining_methods"
+    },
+    {
+      "type": "hierarchical",
+      "source": "rp1_datasets",
+      "target": "rp1_training_dataset"
+    },
+    {
+      "type": "hierarchical",
+      "source": "rp1_datasets",
+      "target": "rp1_validation_dataset"
+    },
+    {
+      "type": "hierarchical",
+      "source": "rp1_performance_results",
+      "target": "rp1_testing_accuracy"
+    },
+    {
+      "type": "hierarchical",
+      "source": "rp1_performance_results",
+      "target": "rp1_validation_accuracy"
+    },
+    {
+      "type": "hierarchical",
+      "source": "rp1_performance_results",
+      "target": "rp1_cell_specific_precision"
+    },
+    {
+      "type": "hierarchical",
+      "source": "rp1_performance_results",
+      "target": "rp1_correlation_with_manual"
+    },
+    {
+      "type": "hierarchical",
+      "source": "rp1_challenges_and_background",
+      "target": "rp1_manual_dc_limitations"
+    },
+    {
+      "type": "hierarchical",
+      "source": "rp1_challenges_and_background",
+      "target": "rp1_ai_development_challenges"
+    }
+  ]
+}

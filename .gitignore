@@ -1,0 +1,21 @@
+# Python
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+.Python
+env/
+venv/
+.venv/
+pip-log.txt
+pip-delete-this-directory.txt
+
+# Project specific
+chroma_db/
+*.pdf
+# Keep the JSON output? The user might want it unless it's huge. 
+# For now I will NOT ignore the json output unless it becomes an issue.
+# consolidated_knowledge_graph.json
+
+# System
+.DS_Store

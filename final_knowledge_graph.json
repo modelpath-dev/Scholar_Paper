@@ -1,0 +1,455 @@
+{
+  "directed": false,
+  "multigraph": false,
+  "graph": {},
+  "nodes": [
+    {
+      "label": "Automated Bone Marrow Cytology System",
+      "summary": "An end-to-end deep learning system that automates the analysis of bone marrow aspirate whole slide images, from region selection to cell classification, culminating in a patient-specific cytological summary called a Histogram of Cell Types (HCT).",
+      "type": "concept",
+      "paper": "s43856-022-00107-6",
+      "id": "s43856-022-00107-6_1"
+    },
+    {
+      "label": "Problem Domain and Motivation",
+      "summary": "Addresses the challenges of traditional bone marrow cytology, which is tedious, subjective, and limited to experienced centers, often leading to diagnostic delays and inter-observer variability.",
+      "type": "concept",
+      "paper": "s43856-022-00107-6",
+      "id": "s43856-022-00107-6_1.1"
+    },
+    {
+      "label": "Inter-observer Variability",
+      "summary": "Manual interpretation of aspirate smears is subject to variability between pathologists, which can affect diagnostic consistency.",
+      "type": "concept",
+      "paper": "s43856-022-00107-6",
+      "id": "s43856-022-00107-6_1.1.1"
+    },
+    {
+      "label": "Labor-Intensive Process",
+      "summary": "The process requires manual identification and counting of 300-500 individual cells, which is time-consuming and tedious.",
+      "type": "concept",
+      "paper": "s43856-022-00107-6",
+      "id": "s43856-022-00107-6_1.1.2"
+    },
+    {
+      "label": "Need for Expertise",
+      "summary": "Accurate interpretation requires highly experienced operators, and lack of expertise in smaller centers can lead to misdiagnosis (e.g., up to 12% of MDS cases).",
+      "type": "concept",
+      "paper": "s43856-022-00107-6",
+      "id": "s43856-022-00107-6_1.1.3"
+    },
+    {
+      "label": "System Architecture and Workflow",
+      "summary": "A fully automated, multi-step computational pipeline that processes digital whole slide images (WSIs) to produce a quantitative cell analysis.",
+      "type": "concept",
+      "paper": "s43856-022-00107-6",
+      "id": "s43856-022-00107-6_1.2"
+    },
+    {
+      "label": "Region of Interest (ROI) Detection",
+      "summary": "The system first analyzes a bone marrow aspirate WSI to automatically detect and select small regions (tiles) that are suitable for cytological analysis.",
+      "type": "concept",
+      "paper": "s43856-022-00107-6",
+      "id": "s43856-022-00107-6_1.2.1"
+    },
+    {
+      "label": "Cell Detection and Classification",
+      "summary": "Within the selected ROIs, the system identifies all individual bone marrow cells and non-cellular objects, and classifies them into discrete categories.",
+      "type": "concept",
+      "paper": "s43856-022-00107-6",
+      "id": "s43856-022-00107-6_1.2.2"
+    },
+    {
+      "label": "Histogram of Cell Types (HCT) Generation",
+      "summary": "The collective cytomorphological information is aggregated into a novel representation called the HCT, which quantifies the cell class probability distribution.",
+      "type": "concept",
+      "paper": "s43856-022-00107-6",
+      "id": "s43856-022-00107-6_1.2.3"
+    },
+    {
+      "label": "Core Deep Learning Models",
+      "summary": "The system utilizes specific deep learning architectures for its distinct tasks: a DenseNet model for region selection and a YOLO model for cell analysis.",
+      "type": "concept",
+      "paper": "s43856-022-00107-6",
+      "id": "s43856-022-00107-6_1.3"
+    },
+    {
+      "label": "DenseNet for ROI Detection",
+      "summary": "A fine-tuned DenseNet model is implemented to rapidly and automatically select appropriate tiles for cytology from the WSI.",
+      "type": "concept",
+      "paper": "s43856-022-00107-6",
+      "id": "s43856-022-00107-6_1.3.1"
+    },
+    {
+      "label": "YOLO for Cell Analysis",
+      "summary": "A 'You Only Look Once' (YOLO) model is used to perform object detection and classification in a single, computationally efficient step.",
+      "type": "concept",
+      "paper": "s43856-022-00107-6",
+      "id": "s43856-022-00107-6_1.3.2"
+    },
+    {
+      "label": "YOLO Advantages",
+      "summary": "YOLO solves both detection and classification problems simultaneously using a regression approach, making it faster than prior methods like R-CNN. The YOLOV4 version is optimized for small object detection.",
+      "type": "concept",
+      "paper": "s43856-022-00107-6",
+      "id": "s43856-022-00107-6_1.3.2.1"
+    },
+    {
+      "label": "Histogram of Cell Types (HCT)",
+      "summary": "A novel information summary that acts as a 'cytological patient fingerprint' by representing the complete distribution of cell types found in the bone marrow aspirate.",
+      "type": "concept",
+      "paper": "s43856-022-00107-6",
+      "id": "s43856-022-00107-6_1.4"
+    },
+    {
+      "label": "Function",
+      "summary": "Quantifies the class probability distribution of all identified bone marrow cell types, providing a comprehensive summary of the patient's cytology.",
+      "type": "concept",
+      "paper": "s43856-022-00107-6",
+      "id": "s43856-022-00107-6_1.4.1"
+    },
+    {
+      "label": "System Performance and Results",
+      "summary": "The system demonstrated high accuracy and precision across its core tasks, validating its potential for clinical support.",
+      "type": "concept",
+      "paper": "s43856-022-00107-6",
+      "id": "s43856-022-00107-6_1.5"
+    },
+    {
+      "label": "ROI Detection Performance",
+      "summary": "Achieved 0.97 accuracy and 0.99 ROC AUC in identifying suitable regions for analysis.",
+      "type": "concept",
+      "paper": "s43856-022-00107-6",
+      "id": "s43856-022-00107-6_1.5.1"
+    },
+    {
+      "label": "Cell Detection and Classification Performance",
+      "summary": "Achieved a mean Average Precision (mAP) of 0.75, an average F1-score of 0.78, and a Log-average miss rate of 0.31 for 16 object classes.",
+      "type": "concept",
+      "paper": "s43856-022-00107-6",
+      "id": "s43856-022-00107-6_1.5.2"
+    },
+    {
+      "label": "Machine-Learning Algorithm for Bone Marrow Cell Differential Counting",
+      "summary": "Development and validation of an AI-based algorithm using a Mask R-CNN model to automate the differential counting of nucleated cells in bone marrow aspiration smears.",
+      "type": "concept",
+      "paper": "rp1",
+      "id": "rp1_1"
+    },
+    {
+      "label": "Objective",
+      "summary": "To develop and validate an artificial intelligence (AI)-based algorithm for identifying and classifying nucleated cells in bone marrow (BM) smears to automate differential counting.",
+      "type": "concept",
+      "paper": "rp1",
+      "id": "rp1_1.1"
+    },
+    {
+      "label": "Methodology",
+      "summary": "The study involved training a Mask R-CNN model on a large, expert-annotated dataset and validating it on a separate multinational clinical dataset.",
+      "type": "concept",
+      "paper": "rp1",
+      "id": "rp1_1.2"
+    },
+    {
+      "label": "AI Model",
+      "summary": "A Mask Region-based Convolutional Neural Network (Mask R-CNN) was used to detect and classify individual bone marrow cells.",
+      "type": "concept",
+      "paper": "rp1",
+      "id": "rp1_1.2.1"
+    },
+    {
+      "label": "Training Dataset",
+      "summary": "The model was trained on a large dataset of expert-annotated images from various disease categories.",
+      "type": "concept",
+      "paper": "rp1",
+      "id": "rp1_1.2.2"
+    },
+    {
+      "label": "Dataset Size",
+      "summary": "542 slides containing 597,222 annotated cells.",
+      "type": "concept",
+      "paper": "rp1",
+      "id": "rp1_1.2.2.1"
+    },
+    {
+      "label": "Staining Methods",
+      "summary": "Slides were stained with Liu\u2019s stain (85.1%) or Wright\u2013Giemsa stain (14.9%).",
+      "type": "concept",
+      "paper": "rp1",
+      "id": "rp1_1.2.2.2"
+    },
+    {
+      "label": "Annotation Process",
+      "summary": "Consensus meetings were held to ensure consistent classification criteria among experts from different institutes.",
+      "type": "concept",
+      "paper": "rp1",
+      "id": "rp1_1.2.2.3"
+    },
+    {
+      "label": "Validation",
+      "summary": "The AI algorithm's performance was evaluated using a multinational clinical dataset from four different centers.",
+      "type": "concept",
+      "paper": "rp1",
+      "id": "rp1_1.2.3"
+    },
+    {
+      "label": "Validation Dataset",
+      "summary": "A multinational real-world dataset comprising 200,639 cells from three centers in Taiwan and one in the United States.",
+      "type": "concept",
+      "paper": "rp1",
+      "id": "rp1_1.2.3.1"
+    },
+    {
+      "label": "Results and Performance",
+      "summary": "The AI model demonstrated high accuracy in both testing and validation phases, with strong correlation to manual counting methods.",
+      "type": "concept",
+      "paper": "rp1",
+      "id": "rp1_1.3"
+    },
+    {
+      "label": "Testing Performance",
+      "summary": "The model achieved an accuracy of 0.94 on the internal testing dataset containing 26,170 cells.",
+      "type": "concept",
+      "paper": "rp1",
+      "id": "rp1_1.3.1"
+    },
+    {
+      "label": "Validation Performance",
+      "summary": "On the multinational real-world dataset, the model achieved an overall accuracy of 0.881 in classifying individual cells.",
+      "type": "concept",
+      "paper": "rp1",
+      "id": "rp1_1.3.2"
+    },
+    {
+      "label": "Cell-Specific Precision",
+      "summary": "High precision was observed for key cell types: Blasts (0.927), Bands and Polymorphonuclear Neutrophils (0.955), Plasma cells (0.930), and Lymphocytes (0.789).",
+      "type": "concept",
+      "paper": "rp1",
+      "id": "rp1_1.3.2.1"
+    },
+    {
+      "label": "Correlation with Manual Counting",
+      "summary": "A strong correlation (\u03c1 > 0.8) was observed between AI and manual differential counting percentages for most cell categories.",
+      "type": "concept",
+      "paper": "rp1",
+      "id": "rp1_1.3.3"
+    },
+    {
+      "label": "Challenges in Development",
+      "summary": "The paper highlights significant challenges in data collection, image acquisition, and annotation for developing AI models for BM cell analysis.",
+      "type": "concept",
+      "paper": "rp1",
+      "id": "rp1_1.4"
+    },
+    {
+      "label": "Data Collection",
+      "summary": "Difficult to collect adequate high-quality BM samples covering a wide range of hematological disorders, especially rare diseases.",
+      "type": "concept",
+      "paper": "rp1",
+      "id": "rp1_1.4.1"
+    },
+    {
+      "label": "Image Acquisition",
+      "summary": "Capturing digital images of BM smears is not routine, and whole-slide scanning with oil lenses is time-consuming and impractical.",
+      "type": "concept",
+      "paper": "rp1",
+      "id": "rp1_1.4.2"
+    },
+    {
+      "label": "Annotation",
+      "summary": "The process is time-consuming, requires scarce expertise, and is complicated by inter-institute variations in classification criteria.",
+      "type": "concept",
+      "paper": "rp1",
+      "id": "rp1_1.4.3"
+    },
+    {
+      "label": "Conclusion",
+      "summary": "The developed AI algorithm was clinically validated, can simultaneously locate and classify BM cells, and shows potential for automating BM differential counting in clinical practice.",
+      "type": "concept",
+      "paper": "rp1",
+      "id": "rp1_1.5"
+    }
+  ],
+  "links": [
+    {
+      "type": "hierarchical",
+      "source": "s43856-022-00107-6_1",
+      "target": "s43856-022-00107-6_1.1"
+    },
+    {
+      "type": "hierarchical",
+      "source": "s43856-022-00107-6_1",
+      "target": "s43856-022-00107-6_1.2"
+    },
+    {
+      "type": "hierarchical",
+      "source": "s43856-022-00107-6_1",
+      "target": "s43856-022-00107-6_1.3"
+    },
+    {
+      "type": "hierarchical",
+      "source": "s43856-022-00107-6_1",
+      "target": "s43856-022-00107-6_1.4"
+    },
+    {
+      "type": "hierarchical",
+      "source": "s43856-022-00107-6_1",
+      "target": "s43856-022-00107-6_1.5"
+    },
+    {
+      "type": "hierarchical",
+      "source": "s43856-022-00107-6_1.1",
+      "target": "s43856-022-00107-6_1.1.1"
+    },
+    {
+      "type": "hierarchical",
+      "source": "s43856-022-00107-6_1.1",
+      "target": "s43856-022-00107-6_1.1.2"
+    },
+    {
+      "type": "hierarchical",
+      "source": "s43856-022-00107-6_1.1",
+      "target": "s43856-022-00107-6_1.1.3"
+    },
+    {
+      "type": "hierarchical",
+      "source": "s43856-022-00107-6_1.2",
+      "target": "s43856-022-00107-6_1.2.1"
+    },
+    {
+      "type": "hierarchical",
+      "source": "s43856-022-00107-6_1.2",
+      "target": "s43856-022-00107-6_1.2.2"
+    },
+    {
+      "type": "hierarchical",
+      "source": "s43856-022-00107-6_1.2",
+      "target": "s43856-022-00107-6_1.2.3"
+    },
+    {
+      "type": "hierarchical",
+      "source": "s43856-022-00107-6_1.3",
+      "target": "s43856-022-00107-6_1.3.1"
+    },
+    {
+      "type": "hierarchical",
+      "source": "s43856-022-00107-6_1.3",
+      "target": "s43856-022-00107-6_1.3.2"
+    },
+    {
+      "type": "hierarchical",
+      "source": "s43856-022-00107-6_1.3.2",
+      "target": "s43856-022-00107-6_1.3.2.1"
+    },
+    {
+      "type": "hierarchical",
+      "source": "s43856-022-00107-6_1.4",
+      "target": "s43856-022-00107-6_1.4.1"
+    },
+    {
+      "type": "hierarchical",
+      "source": "s43856-022-00107-6_1.5",
+      "target": "s43856-022-00107-6_1.5.1"
+    },
+    {
+      "type": "hierarchical",
+      "source": "s43856-022-00107-6_1.5",
+      "target": "s43856-022-00107-6_1.5.2"
+    },
+    {
+      "type": "hierarchical",
+      "source": "rp1_1",
+      "target": "rp1_1.1"
+    },
+    {
+      "type": "hierarchical",
+      "source": "rp1_1",
+      "target": "rp1_1.2"
+    },
+    {
+      "type": "hierarchical",
+      "source": "rp1_1",
+      "target": "rp1_1.3"
+    },
+    {
+      "type": "hierarchical",
+      "source": "rp1_1",
+      "target": "rp1_1.4"
+    },
+    {
+      "type": "hierarchical",
+      "source": "rp1_1",
+      "target": "rp1_1.5"
+    },
+    {
+      "type": "hierarchical",
+      "source": "rp1_1.2",
+      "target": "rp1_1.2.1"
+    },
+    {
+      "type": "hierarchical",
+      "source": "rp1_1.2",
+      "target": "rp1_1.2.2"
+    },
+    {
+      "type": "hierarchical",
+      "source": "rp1_1.2",
+      "target": "rp1_1.2.3"
+    },
+    {
+      "type": "hierarchical",
+      "source": "rp1_1.2.2",
+      "target": "rp1_1.2.2.1"
+    },
+    {
+      "type": "hierarchical",
+      "source": "rp1_1.2.2",
+      "target": "rp1_1.2.2.2"
+    },
+    {
+      "type": "hierarchical",
+      "source": "rp1_1.2.2",
+      "target": "rp1_1.2.2.3"
+    },
+    {
+      "type": "hierarchical",
+      "source": "rp1_1.2.3",
+      "target": "rp1_1.2.3.1"
+    },
+    {
+      "type": "hierarchical",
+      "source": "rp1_1.3",
+      "target": "rp1_1.3.1"
+    },
+    {
+      "type": "hierarchical",
+      "source": "rp1_1.3",
+      "target": "rp1_1.3.2"
+    },
+    {
+      "type": "hierarchical",
+      "source": "rp1_1.3",
+      "target": "rp1_1.3.3"
+    },
+    {
+      "type": "hierarchical",
+      "source": "rp1_1.3.2",
+      "target": "rp1_1.3.2.1"
+    },
+    {
+      "type": "hierarchical",
+      "source": "rp1_1.4",
+      "target": "rp1_1.4.1"
+    },
+    {
+      "type": "hierarchical",
+      "source": "rp1_1.4",
+      "target": "rp1_1.4.2"
+    },
+    {
+      "type": "hierarchical",
+      "source": "rp1_1.4",
+      "target": "rp1_1.4.3"
+    }
+  ]
+}
