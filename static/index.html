@@ -1,0 +1,250 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ScholarGraph | AI Knowledge Explorer</title>
+    <link rel="stylesheet" href="static/style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/mermaid/dist/mermaid.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/svg-pan-zoom@3.6.1/dist/svg-pan-zoom.min.js"></script>
+</head>
+
+<body>
+    <header>
+        <div class="logo">
+            <h1>ScholarGraph</h1>
+        </div>
+        <div class="actions">
+            <button class="btn" onclick="fetchGraph()">Refresh Graph</button>
+        </div>
+    </header>
+
+    <div class="main-container" id="main-layout">
+        <button id="toggle-sidebar" class="sidebar-toggle" title="Toggle Sidebar">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"
+                stroke-linecap="round" stroke-linejoin="round">
+                <polyline points="15 18 9 12 15 6"></polyline>
+            </svg>
+        </button>
+
+        <div class="sidebar" id="sidebar">
+            <div id="drop-zone" class="upload-area">
+                <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                    stroke-linecap="round" stroke-linejoin="round" style="margin-bottom: 0.5rem; opacity: 0.5;">
+                    <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+                    <polyline points="17 8 12 3 7 8"></polyline>
+                    <line x1="12" y1="3" x2="12" y2="15"></line>
+                </svg>
+                <p style="margin: 0; font-size: 0.9rem; font-weight: 600;">Upload Research Paper</p>
+                <p style="margin: 0.25rem 0 0; font-size: 0.75rem; color: var(--text-muted);">Drop PDF or click</p>
+                <input type="file" id="file-input" hidden accept=".pdf">
+            </div>
+
+            <div id="processing-status" style="display: none;">
+                <p id="status-text" style="font-size: 0.75rem; color: var(--accent); margin-bottom: 0.25rem;"></p>
+                <div
+                    style="height: 3px; width: 100%; background: rgba(255,255,255,0.1); border-radius: 2px; overflow: hidden;">
+                    <div id="progress-bar"
+                        style="height: 100%; width: 0%; background: var(--accent); transition: width 0.3s;"></div>
+                </div>
+            </div>
+
+        </div>
+
+        <div class="content-area">
+            <div id="loader" class="loader">
+                <div class="spinner"></div>
+                <p style="margin-top: 1rem; color: var(--text-muted);">Generating Knowledge Graph...</p>
+            </div>
+
+            <!-- Graph Controls -->
+            <div class="graph-controls">
+                <button class="control-btn" title="Zoom In" onclick="panZoom?.zoomIn()">+</button>
+                <button class="control-btn" title="Zoom Out" onclick="panZoom?.zoomOut()">-</button>
+                <button class="control-btn" title="Reset View"
+                    onclick="panZoom?.reset(); panZoom?.center(); panZoom?.fit();">⌂</button>
+            </div>
+
+            <div id="graph-container">
+                <div id="mermaid-output" class="mermaid">
+                    graph TD
+                    A[Upload a Research Paper] --> B[Generate Insight]
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="notification" class="notification"></div>
+
+    <script>
+        mermaid.initialize({
+            startOnLoad: false,
+            theme: 'base',
+            securityLevel: 'loose',
+            flowchart: {
+                htmlLabels: true,
+                curve: 'basis',
+                useMaxWidth: false,
+                padding: 40,
+                nodeSpacing: 150,
+                rankSpacing: 150
+            },
+            themeVariables: {
+                darkMode: true,
+                background: '#020617',
+                primaryColor: '#1e293b',
+                primaryTextColor: '#ffffff',
+                primaryBorderColor: '#818cf8',
+                lineColor: '#64748b',
+                fontSize: '24px',  /* Increased for clear visibility */
+                fontFamily: 'Inter, sans-serif'
+            }
+        });
+
+        const mainLayout = document.getElementById('main-layout');
+        const sidebar = document.getElementById('sidebar');
+        const toggleBtn = document.getElementById('toggle-sidebar');
+        const dropZone = document.getElementById('drop-zone');
+        const fileInput = document.getElementById('file-input');
+        const loader = document.getElementById('loader');
+        const mermaidOutput = document.getElementById('mermaid-output');
+        let panZoom = null;
+
+        // Toggle Sidebar
+        toggleBtn.onclick = () => {
+            sidebar.classList.toggle('collapsed');
+            mainLayout.classList.toggle('sidebar-collapsed');
+
+            // Flip arrow icon
+            const polyline = toggleBtn.querySelector('polyline');
+            if (sidebar.classList.contains('collapsed')) {
+                polyline.setAttribute('points', '9 18 15 12 9 6');
+            } else {
+                polyline.setAttribute('points', '15 18 9 12 15 6');
+            }
+
+            // Handle resizing of graph
+            setTimeout(() => {
+                if (panZoom) {
+                    panZoom.resize();
+                    panZoom.fit();
+                    panZoom.center();
+                }
+            }, 350);
+        };
+
+        dropZone.onclick = () => fileInput.click();
+
+        fileInput.onchange = (e) => {
+            if (e.target.files.length > 0) processFile(e.target.files[0]);
+        };
+
+        dropZone.ondragover = (e) => {
+            e.preventDefault();
+            dropZone.classList.add('dragging');
+        };
+
+        dropZone.ondragleave = () => {
+            dropZone.classList.remove('dragging');
+        };
+
+        dropZone.ondrop = (e) => {
+            e.preventDefault();
+            dropZone.classList.remove('dragging');
+            if (e.dataTransfer.files.length > 0) processFile(e.dataTransfer.files[0]);
+        };
+
+        async function processFile(file) {
+            const formData = new FormData();
+            formData.append('file', file);
+
+            loader.style.display = 'block';
+            mermaidOutput.style.opacity = '0';
+
+            try {
+                const response = await fetch('/upload', {
+                    method: 'POST',
+                    body: formData
+                });
+
+                if (!response.ok) throw new Error(await response.text());
+
+                const data = await response.json();
+                showNotification(`Success: ${data.message}`);
+                fetchGraph();
+            } catch (err) {
+                showNotification(`Error: ${err.message}`, true);
+                loader.style.display = 'none';
+                mermaidOutput.style.opacity = '1';
+            }
+        }
+
+        async function fetchGraph() {
+            try {
+                const response = await fetch('/graph/mermaid');
+                const data = await response.json();
+
+                if (!data.mermaid || data.mermaid.trim() === "") {
+                    console.warn("Empty mermaid graph received");
+                    return;
+                }
+
+                if (panZoom) {
+                    panZoom.destroy();
+                    panZoom = null;
+                }
+
+                // Clear previous content
+                mermaidOutput.innerHTML = "";
+
+                // Create a temporary element for rendering to avoid conflicts
+                const tempId = 'temp-graph-' + Date.now();
+                const { svg } = await mermaid.render(tempId, data.mermaid);
+
+                mermaidOutput.innerHTML = svg;
+                loader.style.display = 'none';
+                mermaidOutput.style.opacity = '1';
+
+                const svgElement = mermaidOutput.querySelector('svg');
+                svgElement.id = 'mermaid-svg-element';
+                svgElement.style.width = '100%';
+                svgElement.style.height = '100%';
+                svgElement.style.maxWidth = 'none';
+
+                // Allow layout to stabilize
+                setTimeout(() => {
+                    panZoom = svgPanZoom(svgElement, {
+                        zoomEnabled: true,
+                        controlIconsEnabled: false,
+                        fit: true,
+                        center: true,
+                        minZoom: 0.05,
+                        maxZoom: 20
+                    });
+                }, 100);
+
+            } catch (err) {
+                console.error('Failed to fetch graph:', err);
+                loader.style.display = 'none';
+                showNotification('Failed to render graph', true);
+            }
+        }
+
+        function showNotification(msg, isError = false) {
+            const n = document.getElementById('notification');
+            n.textContent = msg;
+            n.style.borderLeftColor = isError ? '#ef4444' : '#10b981';
+            n.classList.add('show');
+            setTimeout(() => n.classList.remove('show'), 3000);
+        }
+
+        // Initial fetch
+        fetchGraph();
+    </script>
+</body>
+
+</html>

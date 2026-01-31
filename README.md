@@ -1,42 +1,85 @@
-# ScholarGraph: AI-Powered Research Knowledge Explorer
+# ScholarGraph 
 
-ScholarGraph is an intelligent system designed to help researchers navigate and connect scientific concepts across large volumes of research papers. By combining PDF parsing, LLM-based concept extraction, and vector-based semantic linking, ScholarGraph builds a dynamic, evolving knowledge graph of scientific insights.
+ScholarGraph is an AI-powered research assistant that transforms complex research papers into interactive, navigable knowledge graphs. It automatically extracts key concepts, links related ideas across different papers, and provides a beautiful full-screen visualization.
 
-## Key Features
+---
 
-- **Automated Concept Extraction**: Uses Gemini Pro to identify core methods, findings, and sub-concepts from research papers.
-- **Semantic Linking**: Automatically discovers and links related concepts across different papers using vector embeddings.
-- **Hierarchical Representation**: Organizes paper content into an intuitive, multi-level concept tree.
-- **Persistent Knowledge Graph**: Maintains a global search and storage system using ChromaDB.
-- **FastAPI Integration**: Robust backend API for paper processing and graph retrieval.
+## Quick Setup Guide
 
-## Quick Start
+This project is built with Python and FastAPI. Follow these steps to get it running on your local machine (Linux, macOS, or Windows).
 
-- [Installation & Usage](./USAGE.md)
-- [System Architecture](./ARCHITECTURE.md)
+### 1. Prerequisites
 
-## How to Use (CLI)
+- **Python 3.10+** installed.
+- **OpenAI API Key**: You'll need this to generate the concept trees.
+
+### 2. Installation
+
+Extract the zip file, open your terminal (or Command Prompt) in the project folder, and run:
 
 ```bash
-python cli.py --input path/to/papers --output graph.json
+# Create a virtual environment
+python -m venv .venv
+
+# Activate the environment
+# On Linux/macOS:
+source .venv/bin/activate
+# On Windows:
+.venv\Scripts\activate
+
+# Install dependencies
+pip install -r requirements.txt
 ```
 
-## Technologies Used
+### 3. Configuration
 
-- **Backend**: FastAPI, Python 3.8+
-- **LLM**: Google Gemini Pro (via LangChain)
-- **Vector DB**: ChromaDB
-- **Embeddings**: Sentence-Transformers (`all-MiniLM-L6-v2`)
-- **Graph Logic**: NetworkX
-- **PDF Parsing**: PyMuPDF
-- **Frontend**: Vanilla JS, Cytoscape.js (Visualization upcoming)
+Create a file named `.env` in the root directory (if it doesn't exist) and add your OpenAI API key:
+
+```env
+OPENAI_API_KEY=your_actual_api_key_here
+```
+
+### 4. Start the Application
+
+Run the following command to start the server:
+
+```bash
+python main.py
+```
+
+Now, open your browser and go to:
+**[http://localhost:8000](http://localhost:8000)**
+
+---
+
+## How to Use
+
+1. **Sidebar Toggle**: Click the blue arrow tab on the left to show/hide the upload panel.
+2. **Upload PDF**: Drag and drop a research paper (PDF) into the upload area or click to browse.
+3. **Explore the Graph**:
+   - **Click and Drag** to pan around.
+   - **Mouse Wheel** to zoom in and out.
+   - **Controls**: Use the buttons in the top-right to Reset, Zoom In, or Zoom Out.
+4. **Automatic Linking**: As you upload more papers, the system will automatically find semantic connections between them!
+
+---
 
 ## Project Structure
 
-- `main.py`: Entry point for the FastAPI application.
-- `pdf_parser.py`: PDF text and section extraction.
-- `tree_generator.py`: LLM-based concept tree generation.
-- `graph_manager.py`: Global knowledge graph and vector storage management.
-- `models.py`: Pydantic data models.
-- `static/`: Frontend web interface files.
-- `chroma_db/`: Local persistent vector storage.
+- `main.py`: The heart of the application (FastAPI server).
+- `tree_generator.py`: AI logic using OpenAI (GPT-4o-mini) to extract concepts.
+- `graph_manager.py`: Manages concept storage and semantic linking via ChromaDB.
+- `pdf_parser.py`: Handles high-quality text extraction from PDFs.
+- `static/`: The interactive web interface (Mermaid.js, Pan-Zoom, etc.).
+- `chroma_db/`: Your local database where all extracted knowledge is saved.
+- `requirements.txt`: List of all required Python packages.
+
+---
+
+## Tech Stack
+
+- **LLM**: GPT-4o-mini (via LangChain)
+- **Vector Database**: ChromaDB
+- **Embeddings**: Sentence-Transformers
+- **Visualization**: Mermaid.js & svg-pan-zoom
+- **Backend**: FastAPI

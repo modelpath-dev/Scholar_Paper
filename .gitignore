@@ -17,10 +17,12 @@ pip-delete-this-directory.txt
 
 # Project specific
 chroma_db/
+uploads/
 *.pdf
-# Keep the JSON output? The user might want it unless it's huge. 
-# For now I will NOT ignore the json output unless it becomes an issue.
-# consolidated_knowledge_graph.json
+*.json
+!models.py # Don't ignore actual code files if they have json in name (unlikely here but safe)
+!package.json # If we had one
 
 # System
 .DS_Store
+Thumbs.db

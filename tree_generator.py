@@ -2,7 +2,7 @@ import os
 import json
 from typing import Dict, Any
 from dotenv import load_dotenv
-from langchain_google_genai import ChatGoogleGenerativeAI
+from langchain_openai import ChatOpenAI
 from langchain_core.prompts import ChatPromptTemplate
 from langchain_core.output_parsers import PydanticOutputParser
 from models import ConceptNode
@@ -10,11 +10,11 @@ from models import ConceptNode
 # Load environment variables from .env
 load_dotenv()
 
-# Initialize the Gemini model
-api_key = os.getenv("GOOGLE_API_KEY") or os.getenv("GEMINI_API_KEY")
-llm = ChatGoogleGenerativeAI(
-    model="gemini-pro-latest",
-    google_api_key=api_key,
+# Initialize the OpenAI model
+api_key = os.getenv("OPENAI_API_KEY")
+llm = ChatOpenAI(
+    model="gpt-4o-mini",
+    api_key=api_key,
     temperature=0.1
 )
 

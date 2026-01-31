@@ -1,0 +1,316 @@
+:root {
+  --primary: #6366f1;
+  --primary-hover: #4f46e5;
+  --bg-dark: #0f172a;
+  --bg-card: #1e293b;
+  --text-main: #f8fafc;
+  --text-muted: #94a3b8;
+  --accent: #10b981;
+}
+
+body {
+  margin: 0;
+  font-family: 'Inter', sans-serif;
+  background-color: var(--bg-dark);
+  color: var(--text-main);
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+  overflow: hidden;
+}
+
+header {
+  height: 60px;
+  background: var(--bg-card);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0 2rem;
+  z-index: 120;
+}
+
+header * {
+  pointer-events: auto;
+}
+
+h1 {
+  margin: 0;
+  font-size: 1.5rem;
+  font-weight: 700;
+  background: linear-gradient(to right, #818cf8, #c084fc);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.main-container {
+  display: flex;
+  flex: 1;
+  overflow: hidden;
+  position: relative;
+  /* Positioning root for sidebar toggle */
+}
+
+.sidebar {
+  width: 280px;
+  padding: 2rem 1.5rem;
+  background: #111827;
+  border-right: 1px solid rgba(255, 255, 255, 0.05);
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+  transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1), width 0.3s;
+  z-index: 110;
+  overflow-y: auto;
+}
+
+.sidebar.collapsed {
+  width: 0;
+  padding: 0;
+  transform: translateX(-100%);
+}
+
+.upload-area {
+  border: 2px dashed rgba(255, 255, 255, 0.2);
+  border-radius: 12px;
+  padding: 2rem;
+  text-align: center;
+  transition: all 0.3s ease;
+  cursor: pointer;
+}
+
+.upload-area:hover {
+  border-color: var(--primary);
+  background: rgba(99, 102, 241, 0.05);
+}
+
+.upload-area.dragging {
+  border-color: var(--accent);
+  background: rgba(16, 185, 129, 0.05);
+}
+
+.btn {
+  background: var(--primary);
+  color: white;
+  border: none;
+  padding: 0.75rem 1.5rem;
+  border-radius: 8px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+
+.btn:hover {
+  background: var(--primary-hover);
+}
+
+.btn:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.content-area {
+  flex: 1;
+  position: relative;
+  background: #020617;
+  display: flex;
+  flex-direction: column;
+}
+
+#graph-container {
+  flex: 1;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  /* Changed to hidden to allow pan-zoom to handle it */
+  padding: 0;
+  display: block;
+  /* Changed for better SVG handling */
+  position: relative;
+  background: radial-gradient(circle at center, #0f172a 0%, #020617 100%);
+}
+
+.graph-controls {
+  position: absolute;
+  top: 1.5rem;
+  right: 1.5rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  z-index: 50;
+  background: rgba(30, 41, 59, 0.4);
+  backdrop-filter: blur(8px);
+  padding: 0.5rem;
+  border-radius: 12px;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.sidebar-toggle {
+  position: absolute;
+  top: 50%;
+  left: 280px;
+  transform: translateY(-50%);
+  z-index: 130;
+  width: 24px;
+  height: 60px;
+  background: var(--primary);
+  border-radius: 0 8px 8px 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  box-shadow: 4px 0 15px rgba(0, 0, 0, 0.3);
+  transition: left 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  border: none;
+  color: white;
+  padding: 0;
+}
+
+.main-container.sidebar-collapsed .sidebar-toggle {
+  left: 0;
+}
+
+.upload-area p {
+  margin-top: 0.5rem;
+  margin-bottom: 0;
+  font-size: 0.9rem;
+  color: var(--text-muted);
+}
+
+.sidebar-toggle:hover {
+  background: var(--primary-hover);
+  transform: scale(1.1);
+}
+
+.control-btn {
+  width: 40px;
+  height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 8px;
+  color: white;
+  cursor: pointer;
+  transition: all 0.2s;
+  font-size: 1.25rem;
+  font-weight: 600;
+}
+
+.control-btn:hover {
+  background: var(--primary);
+  border-color: var(--primary);
+  transform: translateY(-2px);
+}
+
+.control-btn:active {
+  transform: translateY(0);
+}
+
+.loader {
+  display: none;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 100;
+}
+
+.spinner {
+  width: 40px;
+  height: 40px;
+  border: 4px solid rgba(255, 255, 255, 0.1);
+  border-left-color: var(--primary);
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.notification {
+  position: fixed;
+  bottom: 2rem;
+  right: 2rem;
+  padding: 1rem 1.5rem;
+  border-radius: 8px;
+  background: var(--bg-card);
+  border-left: 4px solid var(--primary);
+  box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.5);
+  transform: translateY(150%);
+  transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.notification.show {
+  transform: translateY(0);
+}
+
+.mermaid {
+  background: transparent !important;
+  width: 100%;
+  height: 100%;
+  cursor: grab;
+}
+
+.mermaid:active {
+  cursor: grabbing;
+}
+
+.mermaid svg {
+  max-width: none !important;
+  width: 100% !important;
+  height: 100% !important;
+}
+
+/* --- NUCLEAR VISIBILITY OVERRIDES FOR MERMAID --- */
+.mermaid svg {
+  font-family: 'Inter', sans-serif !important;
+}
+
+/* Force Node Styling */
+.node rect,
+.node .label-container,
+.node foreignObject {
+  fill: #111827 !important;
+  /* Extremely dark blue/black */
+  stroke: #6366f1 !important;
+  /* Bright indigo border */
+  stroke-width: 2.5px !important;
+}
+
+/* Force Text Visibility - Target EVERYTHING */
+.node .label,
+.node .label text,
+.node text,
+.node tspan,
+.node foreignObject div,
+.node foreignObject span,
+.node foreignObject p {
+  color: #ffffff !important;
+  fill: #ffffff !important;
+  font-weight: 800 !important;
+  text-align: center !important;
+  overflow: visible !important;
+  padding: 8px !important;
+}
+
+/* Ensure edges are visible but distinctive */
+.edgePath path {
+  stroke: #64748b !important;
+  stroke-width: 2px !important;
+}
+
+.edgeLabel text {
+  fill: #94a3b8 !important;
+  font-size: 14px !important;
+  font-weight: 600 !important;
+}
+
+.edgeLabel rect {
+  fill: #0f172a !important;
+}
